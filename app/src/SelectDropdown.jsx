@@ -1,17 +1,29 @@
-import React from 'react';
+import React from 'react'
 
-function SelectDropdown({ options = [], selectOption }) {
+function SelectDropdown({
+	options = [],
+	selectOption,
+	selected,
+	deleteSuggestion,
+}) {
 	return (
-		<ul>
-			{options.map((option) => {
+		<ul className='search__dropdown'>
+			{options.map((option, i) => {
 				return (
-					<li key={option}
-						onMouseDown={(e) => {
-							console.log('li clicked')
+					<li
+						className={i === selected ? 'search__dropdown--item-selected' :
+							'search__dropdown--item'}
+						key={i}
+						onClick={(e) => {
+							console.log('on mouse down')
 							selectOption(option)
 						}}
 					>
 						{option}
+						<button onClick={(e) => {
+							console.log('I am btn')
+							e.stopPropagation()
+							return deleteSuggestion(i, option)}}>x</button>
 					</li>
 				)
 			})}
@@ -19,4 +31,4 @@ function SelectDropdown({ options = [], selectOption }) {
 	)
 }
 
-export default SelectDropdown;
+export default SelectDropdown
